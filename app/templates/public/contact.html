@@ -1,0 +1,60 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-2">Contact</h1>
+    <p class="text-muted mb-4">Send an enquiry — submissions are saved in Admin → Enquiries.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="fw-semibold mb-2">Department Office</div>
+            <div class="text-muted small mb-3">{{ settings.address }}</div>
+            <div class="text-muted small">
+              Email: {{ settings.enquiry_email }}<br>
+              Phone: {{ settings.phone }}
+            </div>
+            {% if settings.google_map_embed %}
+              <div class="ratio ratio-4x3 mt-3">
+                {{ settings.google_map_embed|safe }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <form method="post" action="{{ url_for('public.contact_post') }}">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Name</label>
+                  <input class="form-control" name="name" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Phone (optional)</label>
+                  <input class="form-control" name="phone">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Message</label>
+                  <textarea class="form-control" rows="5" name="message" required></textarea>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "public/base.html" %}
+
+{% block hero %}
+ <!-- DEBUG slides count: {{ slides|length }} -->
+<!-- DEBUG urls: {% for s in slides %}{{ s.image_url }} | {% endfor %} -->
+  {% if slides and slides|length > 0 %}
+  <!-- DEBUG slides count: {{ slides|length }} -->
+  <!-- DEBUG urls: {% for s in slides %}{{ s.image_url }} | {% endfor %} -->
+
+    <div id="heroCarousel" class="carousel slide home-hero" data-bs-ride="carousel" data-bs-interval="1000">
+
+      <div class="carousel-inner">
+        {% for s in slides %}
+          <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <section class="page-hero" style="--hero-bg: url('{{ s.image_url }}');">
+              <div class="page-hero-overlay hero-slide-overlay">
+                <div class="container py-5">
+                  {% if s.title %}<h1 class="display-6 fw-bold text-white mb-2">{{ s.title }}</h1>{% endif %}
+                  {% if s.subtitle %}<p class="text-white-50 mb-4">{{ s.subtitle }}</p>{% endif %}
+
+                  {% if s.cta_text and s.cta_url %}
+                    <a class="btn btn-light btn-lg" href="{{ s.cta_url }}">{{ s.cta_text }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </section>
+          </div>
+        {% endfor %}
+      </div>
+       <!-- DEBUG slides count: {{ slides|length }} -->
+<!-- DEBUG urls: {% for s in slides %}{{ s.image_url }} | {% endfor %} -->
+      {% if slides|length > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      {% endif %}
+
+    </div>
+  {% else %}
+    {# fallback: keep your existing single home banner #}
+    <section class="page-hero" style="--hero-bg: url('{{ url_for('static', filename='images/headers/header_image.jpg') }}');">
+      <div class="page-hero-overlay hero-slide-overlay">
+        <div class="container py-5">
+          <h1 class="display-6 fw-bold text-white mb-2">{{ settings.hero_title }}</h1>
+          <p class="text-white-50 mb-0">{{ settings.hero_subtitle }}</p>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}       
+<section>
+      <div class="col-lg-6">
+        <div class="hero-panel p-4 p-lg-5">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img src="{{ url_for('static', filename='images/dept_logo.png') }}" class="logo dept-logo" alt="Department logo" />
+            <div>
+              <div class="h5 mb-0">Why Intelligence Systems?</div>
+              <div class="text-muted small"></div>
+            </div>
+          </div>
+          <ul class="text-muted mb-0">
+            <li>Modern curriculum aligned to AI, Data, and Intelligent Engineering</li>
+            <li>Hands-on labs, projects, and real-world problem solving</li>
+            <li>Strong industry connect: MoUs, guest lectures, and internships</li>
+            <li>Research forum and funded project ecosystem</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if about_page %}
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h4 mb-0">{{ about_page.title }}</h2>      
+    </div>
+
+    <div class="text-muted">
+      {{ about_page.body_html | safe }}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

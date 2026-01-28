@@ -1,0 +1,42 @@
+<div class="small text-muted">DEBUG: faculty_list count = {{ faculty_list|length if faculty_list else 0 }}</div>
+
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-2">Faculty</h1>
+    <p class="text-muted mb-4"></p>
+
+    <div class="row g-3">
+      {% for f in faculty_list %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex gap-3 align-items-start">
+                <div class="faculty-photo">
+                    {% if f.photo_url %}
+                      <img src="{{ f.photo_url }}" alt="{{ f.name }} photo">
+                    {% else %}
+                      <span>{{ f.name[:1] }}</span>
+                    {% endif %}
+                  </div>
+                <div>
+                  <div class="fw-semibold">{{ f.name }}</div>
+                  <div class="text-muted small">{{ f.designation }}</div>
+                  <div class="small mt-2"><span class="text-muted">Specialization:</span> {{ f.specialization }}</div>
+                  <div class="small"><span class="text-muted">Email:</span> {{ f.email }}</div>                  
+                </div>
+              </div>
+              {% if f.bio_html %}
+                <div class="mt-3 text-muted small">{{ f.bio_html|safe }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-12 text-muted">No faculty profiles yet. Add in Admin → Faculty.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

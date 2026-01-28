@@ -1,0 +1,28 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-3">Newsletter</h1>
+    <div class="row g-3">
+      {% for n in items %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <div class="small text-muted">{{ n.published_on }}</div>
+              <div class="h6 mt-1">{{ n.title }}</div>
+              <div class="text-muted small">{{ n.issue }}</div>
+              {% if n.pdf_url %}
+                <a class="btn btn-outline-secondary btn-sm mt-3" href="{{ n.pdf_url }}">Download PDF</a>
+              {% else %}
+                <div class="text-muted small mt-3">PDF link not added yet.</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-12 text-muted">No newsletters yet. Add in Admin → Newsletter.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

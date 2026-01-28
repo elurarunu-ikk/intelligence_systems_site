@@ -1,0 +1,33 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-4">Alumni</h1>
+
+    <div class="row g-3">
+      {% for a in alumni %}
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <div class="fw-semibold">{{ a.name }}</div>
+              <div class="text-muted small">Batch: {{ a.graduation_year }}</div>
+
+              {% if a.current_position or a.organization %}
+                <div class="small mt-2">
+                  {{ a.current_position }}{% if a.organization %} • {{ a.organization }}{% endif %}
+                </div>
+              {% endif %}
+
+              {% if a.profile_html %}
+                <div class="small text-muted mt-2">{{ a.profile_html | safe }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-12 text-muted">Alumni details will be updated soon.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+cd D:\saveetha\intelligence_systems_site
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+Before run
+select Interperator
+python 3.13.2 (.venv) .\venv\Scripts\python.exe
+
+In terminal
+PS D:\intelligence_systems_site> .\.venv\Scripts\Activate.ps1
+ PS D:\intelligence_systems_site> python run.py
+ 
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.20:5001
+
+News image upload in admin in URL
+/static/images/news/guest-lecture-ai.jpg
+format: jpg, png, webp

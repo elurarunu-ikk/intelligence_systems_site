@@ -1,0 +1,68 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-2">Industry & Careers</h1>
+    <p class="text-muted mb-4">This page supports both text-only and numbers. You can toggle stats visibility in Admin → Placement Stats.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="h5">Placement Overview (Editable)</h2>
+            <p class="text-muted mb-0">
+              Add placement narrative, recruiter information, and student outcomes. You can later update this with official department placement data.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <h2 class="h5 mb-3">Placement Highlights</h2>
+          <div class="row g-3">
+            {% for s in stats %}
+              <div class="col-md-6">
+                <div class="stat-card stat-card-light">
+                  <div class="stat-label">{{ s.label }}</div>
+                  <div class="stat-value">{{ s.value }}</div>
+                </div>
+              </div>
+            {% else %}
+              <div class="col-12 text-muted">No stats yet. Add in Admin → Placement Stats.</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="h5">MoUs / Industry Partners</h2>
+            <div class="row g-3 mt-2">
+              {% for m in mous %}
+                <div class="col-12">
+                  <div class="partner-tile">
+                    <div class="fw-semibold">{{ m.partner_name }}</div>
+                    <div class="text-muted small">{{ m.area }}</div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="col-12 text-muted">No MoUs yet. Add in Admin → MoUs.</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow-sm mt-4">
+          <div class="card-body">
+            <h2 class="h5">Internships (Editable)</h2>
+            <p class="text-muted mb-0">
+              Add internship partners, process, and highlights. (You can create a CMS page or module later.)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

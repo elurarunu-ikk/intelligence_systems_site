@@ -1,0 +1,30 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="mb-3">
+      <a class="small text-muted" href="{{ url_for('public.gallery') }}">← Back to Gallery</a>
+    </div>
+
+    <h1 class="h3 mb-1">{{ album.title }}</h1>
+    <div class="text-muted mb-4">{{ album.category }} • {{ album.year }}</div>
+
+    <div class="row g-3">
+      {% for img in album.images %}
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <img src="{{ img.image_url }}" class="card-img-top" alt="{{ img.caption or 'Gallery image' }}">
+            {% if img.caption %}
+              <div class="card-body">
+                <div class="small text-muted">{{ img.caption }}</div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% else %}
+        <div class="col-12 text-muted">No images added yet.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

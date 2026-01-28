@@ -1,0 +1,23 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-3">News</h1>
+    <div class="row g-3">
+      {% for n in items %}
+        <div class="col-lg-6">
+          <a class="card h-100 shadow-sm text-decoration-none" href="{{ url_for('public.news_detail', slug=n.slug) }}">
+            <div class="card-body">
+              <div class="small text-muted">{{ n.published_on }}</div>
+              <div class="h5 mb-2">{{ n.title }}</div>
+              <div class="text-muted">{{ n.summary }}</div>
+            </div>
+          </a>
+        </div>
+      {% else %}
+        <div class="col-12 text-muted">No news yet. Add in Admin → News.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

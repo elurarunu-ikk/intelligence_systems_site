@@ -1,0 +1,16 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="mb-3">
+      <a class="small text-muted" href="{{ url_for('public.news_list') }}">← Back to News</a>
+    </div>
+    <h1 class="h3 mb-2">{{ item.title }}</h1>
+    <div class="text-muted small mb-4">{{ item.published_on }}</div>
+    {% if item.cover_image_url %}
+      <img src="{{ item.cover_image_url }}" class="img-fluid rounded mb-4" alt="cover image">
+    {% endif %}
+    <div class="content">{{ item.body_html|safe }}</div>
+  </div>
+</section>
+{% endblock %}

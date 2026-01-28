@@ -1,0 +1,31 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-3">Events</h1>
+    <div class="list-group shadow-sm">
+      {% for e in items %}
+        <div class="list-group-item">
+          <div class="d-flex justify-content-between align-items-start gap-3">
+            <div>
+              <div class="fw-semibold">{{ e.title }}</div>
+              <div class="small text-muted">{{ e.location }}</div>
+            </div>
+            <div class="small text-muted text-end">
+              {{ e.starts_at.strftime("%d %b %Y, %I:%M %p") }}
+            </div>
+          </div>
+          {% if e.description_html %}
+            <div class="small text-muted mt-2">{{ e.description_html|safe }}</div>
+          {% endif %}
+          {% if e.registration_link %}
+            <div class="mt-2"><a href="{{ e.registration_link }}" class="small">Registration link</a></div>
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="list-group-item text-muted">No events yet. Add in Admin → Events.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

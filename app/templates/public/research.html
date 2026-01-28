@@ -1,0 +1,26 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-2">Research & Innovation</h1>
+    <p class="text-muted mb-4">Funded projects are editable via Admin → Funded Projects.</p>
+
+    <div class="row g-3">
+      {% for p in projects %}
+        <div class="col-lg-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="h5">{{ p.title }}</h2>
+              <div class="small text-muted">Sponsor: {{ p.sponsor }} • Amount: {{ p.amount }} • Duration: {{ p.duration }}</div>
+              <div class="small text-muted">PI: {{ p.pi }}</div>
+              <p class="text-muted mt-3 mb-0">{{ p.summary }}</p>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-12 text-muted">No funded projects yet. Add in Admin → Funded Projects.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

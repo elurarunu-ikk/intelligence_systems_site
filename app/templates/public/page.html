@@ -1,0 +1,16 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="h3 mb-3">{{ page.title if page else fallback_title }}</h1>
+    {% if page and page.body_html %}
+      <div class="content">{{ page.body_html|safe }}</div>
+    {% else %}
+      <div class="text-muted">
+        This page is editable. Create content in <strong>Admin → Pages</strong> using the slug:
+        <code>{{ 'about' if fallback_title=='About' else 'page-slug' }}</code>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
