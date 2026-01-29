@@ -103,17 +103,37 @@ class HeroSlideAdmin(SecureModelView):
 
    
 class FacultyView(SecureModelView):
-        form_columns = (
-            "name",
-            "designation",
-            "display_order",
-            "specialization",
-            "email",
-            "phone",
-            "photo_url",
-            "bio_html",
-            "is_published",
-        )   
+    form_columns = (
+        "name","designation","display_order","specialization",
+        "email","phone","photo_url","bio_html","is_published",
+    )
+
+    # Upload into: app/static/images/faculty/
+    form_extra_fields = {
+        "photo_url": ImageUploadField(
+            "Faculty Photo",
+            base_path=lambda: os.path.join(current_app.root_path, "static", "images", "faculty"),
+            url_relative_path="images/faculty/",
+            namegen=lambda obj, file_data: secure_filename(file_data.filename),
+            allowed_extensions=("jpg", "jpeg", "png", "webp"),
+        )
+    }
+
+    def on_model_change(self, form, model, is_created):
+        if model.photo_url:
+            v = str(model.photo_url).strip().replace("\\", "/")
+
+            # If filename only
+            if "/" not in v:
+                v = f"images/faculty/{v}"
+
+            # Ensure /static prefix
+            if not v.startswith("/static/"):
+                v = "/static/" + v.lstrip("/")
+
+            model.photo_url = v
+
+        super().on_model_change(form, model, is_created)
 
 class GalleryImageView(SecureModelView):
     form_columns = ("album", "image_url", "caption")
