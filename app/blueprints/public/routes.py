@@ -102,9 +102,6 @@ def about():
         header_title="About",
         header_subtitle=(page.header_subtitle if page and page.header_subtitle else "Aim, scope, vision, and facilities"),
     )
-
-
-
 @public_bp.get("/academics")
 def academics():
     settings = get_settings()
@@ -119,7 +116,13 @@ def faculty():
               .order_by(Faculty.display_order.asc())
               .all()
                 )
-    return render_template("public/faculty.html", settings=settings, faculty_list=faculty_list)
+    return render_template("public/faculty.html", 
+                           settings=settings, 
+                           faculty_list=faculty_list,
+                           header_image=settings.banner_faculty,
+                           header_title="Faculty",
+                           header_subtitle="Meet our academic team"
+                           )
 
 @public_bp.get("/research")
 def research():
@@ -138,7 +141,13 @@ def placements():
 def news_list():
     settings = get_settings()
     items = News.query.filter_by(is_published=True).order_by(desc(News.published_on)).all()
-    return render_template("public/news_list.html", settings=settings, items=items)
+    return render_template("public/news_list.html", 
+                           settings=settings, 
+                           items=items,
+                           header_image=settings.banner_news,
+                           header_title="News & Updates",
+                           header_subtitle="Latest announcements and achievements"
+                           )
 
 @public_bp.get("/news/<slug>")
 def news_detail(slug: str):
@@ -146,13 +155,19 @@ def news_detail(slug: str):
     item = News.query.filter_by(slug=slug, is_published=True).first()
     if not item:
         abort(404)
-    return render_template("public/news_detail.html", settings=settings, item=item)
+    return render_template("public/news_detail.html", settings=settings, item=item,)
 
 @public_bp.get("/events")
 def events_list():
     settings = get_settings()
     items = Event.query.filter_by(is_published=True).order_by(Event.starts_at.asc()).all()
-    return render_template("public/events_list.html", settings=settings, items=items)
+    return render_template("public/events_list.html", 
+                           settings=settings, 
+                           items=items,
+                            header_image=settings.banner_events,
+                            header_title="Events",
+                            header_subtitle="Academic and campus events"
+                           )
 
 @public_bp.get("/newsletter")
 def newsletter():

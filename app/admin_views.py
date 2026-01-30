@@ -99,8 +99,7 @@ class HeroSlideAdmin(SecureModelView):
 
         super().on_model_change(form, model, is_created)
 
-
-
+    
    
 class FacultyView(SecureModelView):
     form_columns = (
@@ -155,3 +154,25 @@ class PageView(SecureModelView):
     )
 
     
+from flask_admin.form import rules
+
+class SiteSettingsAdmin(SecureModelView):
+    can_create = False
+    can_delete = False
+
+    form_edit_rules = (
+        rules.Header("Branding"),
+        "dept_name","tagline",
+
+        rules.Header("Home Banner"),
+        "home_hero_default_image_url",
+        "home_hero_interval_ms",
+
+        rules.Header("Section Banners"),
+        "banner_faculty",
+        "banner_news",
+        "banner_events",
+
+        rules.Header("Contact"),
+        "enquiry_email","phone","address",
+    )

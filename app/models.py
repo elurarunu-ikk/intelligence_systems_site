@@ -37,7 +37,10 @@ class SiteSettings(db.Model, TimestampMixin):
     address = db.Column(db.Text, default="Saveetha University, Chennai, Tamil Nadu, India", nullable=False)
     google_map_embed = db.Column(db.Text, default="", nullable=True)
 
-   
+     # Section banner images
+    banner_faculty = db.Column(db.String(500), nullable=True)
+    banner_news = db.Column(db.String(500), nullable=True)
+    banner_events = db.Column(db.String(500), nullable=True)
 
 class Page(db.Model, TimestampMixin):
     id = db.Column(db.Integer, primary_key=True)

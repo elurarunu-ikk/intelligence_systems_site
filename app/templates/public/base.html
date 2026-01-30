@@ -30,27 +30,28 @@
             document.getElementById("date").textContent = today.toDateString();
           </script>
           
-  <!-- Header -->
-  <header class="site-header border-bottom bg-white">
-    <div class="container py-3 d-flex align-items-center justify-content-between gap-3 flex-wrap">
-      <div class="d-flex align-items-center gap-3">
-        <img src="{{ url_for('static', filename='images/dept_logo.png') }}" class="logo dept-logo" alt="Department logo" />
-        <div>
-          <div class="h5 mb-0">{{ settings.dept_name }}</div>
-          <div class="text-muted small">{{ settings.tagline }}</div>
-        </div>
+   <!-- Header -->
+<header class="site-header border-bottom bg-white">
+  <div class="container py-3 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+    <div class="d-flex align-items-center gap-3">
+      <img src="{{ url_for('static', filename='images/dept_logo.png') }}" class="logo dept-logo" alt="Department logo" />
+      <div>
+        <div class="h5 mb-0">{{ settings.dept_name }}</div>
+        <div class="text-muted small">{{ settings.tagline }}</div>
       </div>
-      <img src="{{ url_for('static', filename='images/simats_logo.png') }}" class="logo simats-logo" alt="SIMATS logo" />
     </div>
-      <!-- DEBUG 
-        <div style="display:none">{{ header_image }}</div> -->
+    <img src="{{ url_for('static', filename='images/simats_logo.png') }}" class="logo simats-logo" alt="SIMATS logo" />
+  </div>
+</header>
 
-      {% block hero %}
+{% block hero %}
   {% if header_image %}
     <section class="page-hero" style="--hero-bg: url('{{ header_image }}');">
       <div class="page-hero-overlay">
         <div class="container py-5">
-          <h1 class="h3 text-white mb-0">{{ header_title or (page.title if page else settings.hero_title) }}</h1>
+          <h1 class="h3 text-white mb-0">
+            {{ header_title or (page.title if page else settings.hero_title) }}
+          </h1>
           {% if header_subtitle %}
             <div class="text-white-50 mt-2">{{ header_subtitle }}</div>
           {% else %}
@@ -62,172 +63,84 @@
   {% else %}
     <section class="hero">
       <div class="container py-5">
-        <h1 class="h3 mb-2">{{ header_title or (page.title if page else settings.hero_title) }}</h1>
-        <div class="text-white-50">{{ header_subtitle or settings.hero_subtitle }}</div>
+        <h1 class="h3 mb-2">
+          {{ header_title or (page.title if page else settings.hero_title) }}
+        </h1>
+        <div class="text-white-50">
+          {{ header_subtitle or settings.hero_subtitle }}
+        </div>
       </div>
     </section>
   {% endif %}
 {% endblock %}
 
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- Nav -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-top">
-      <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-          <!--commmeted on 12Dec2025 for Dropdown menus>
-          <ul class="navbar-nav ms-auto gap-lg-2">
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.home') }}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.about') }}">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.academics') }}">Academics</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.faculty') }}">People</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.research') }}">Research</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.placements') }}">Industry & Careers</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.news_list') }}">News</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a></li>
-            <li class="nav-item"><a class="btn btn-primary btn-sm ms-lg-2" href="{{ url_for('public.contact') }}">Enquire</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('public.gallery') }}">Gallery</a></li>
-          </ul>
-          --->
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-      <!-- Home -->      
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('public.home') }}">Home</a>
-      </li>
-
-      <!-- About 
-      <li class="nav-item"></li>
-      <li class="nav-item"><a class="nav-link" href="{{ url_for('public.about') }}">About</a></li>
-      </li> -->
-
-   <!--About
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">About</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{{ url_for('public.about') }}">About (Overview)</a></li>
-      <li><a class="dropdown-item" href="/p/about">About the Department</a></li>
-      <li><a class="dropdown-item" href="/p/aim-scope">Aim &amp; Scope</a></li>
-      <li><a class="dropdown-item" href="/p/vision-mission">Vision &amp; Mission</a></li>
-      <li><a class="dropdown-item" href="/p/labs-infrastructure">Labs &amp; Infrastructure</a></li>
-      <li><a class="dropdown-item" href="/p/advisory-board">Advisory Board</a></li>
-    </ul>
-  </li>  -->
-
-  <!-- Academics 
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Academics</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{{ url_for('public.academics') }}">Academic Offerings</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="/p/curriculum-highlights">Curriculum Highlights</a></li>
-      <li><a class="dropdown-item" href="/p/academic-calendar">Academic Calendar</a></li>
-      <li><a class="dropdown-item" href="/p/admission-guidelines">Admission Guidelines</a></li>
-    </ul>
-  </li>-->
-
-  <!-- Faculty 
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Faculty</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{{ url_for('public.faculty') }}">Faculty Profiles</a></li>
-      <li><a class="dropdown-item" href="/p/mentorship">Mentorship Program</a></li>
-      <li><a class="dropdown-item" href="/p/faculty-development-program">Faculty Development Program</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="{{ url_for('public.alumni') }}">Alumni</a></li> 
-    </ul>
-  </li>-->
-
-<li class="nav-item">
-  <a class="nav-link" href="{{ url_for('public.faculty') }}">Faculty</a>
-</li>
-
-  <!-- Research & Innovation
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Research &amp; Innovation</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{{ url_for('public.research') }}">Research (Overview)</a></li>
-      <li><a class="dropdown-item" href="/p/research-areas">Research Areas</a></li>
-      <li><a class="dropdown-item" href="/p/publications">Publications</a></li>
-      <li><a class="dropdown-item" href="/p/research-forum">Research Forum</a></li>
-      <li><a class="dropdown-item" href="/p/workshops-conferences">Workshops / Conferences / Symposiums</a></li>
-      <li><hr class="dropdown-divider"></li>
-     
-      <li><a class="dropdown-item" href="/p/funded-projects">Funded Projects</a></li>
-      <li><a class="dropdown-item" href="/p/research-achievements">Research Achievements</a></li>
-      <li><a class="dropdown-item" href="/p/mous">MoUs (Research/Industry)</a></li>
-    </ul>
-  </li>
--->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Research</a>
-    <ul class="dropdown-menu">
-      <li>
-          <a class="dropdown-item" href="/p/publications">Publications</a>
+        <!-- Home -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('public.home') }}">Home</a>
         </li>
-      <li>
-        <a class="dropdown-item" href="/p/funded-projects">Funded Projects</a>
-      </li>
-    </ul>
 
-  <!-- Industry & Careers -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Industry &amp; Careers</a>
-    <ul class="dropdown-menu">
-     <!-- <li><a class="dropdown-item" href="{{ url_for('public.placements') }}">Placements</a></li>
-      <li><a class="dropdown-item" href="/p/placement-highlights">Placement Highlights</a></li>
-      <li><a class="dropdown-item" href="/p/internships">Internships</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="/p/mous">MoUs</a></li>
-      <li><a class="dropdown-item" href="/p/career-opportunities">Career Opportunities</a></li> -->
-      <li><a class="dropdown-item" href="/p/mous">MoUs</a></li>
-      <li><a class="dropdown-item" href="/p/industry-visits">Industry Visits</a></li>
-      <li><a class="dropdown-item" href="/p/guest-lectures">Guest Lectures</a></li>
-      
-    </ul>
-  </li>
+        <!-- Faculty -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('public.faculty') }}">Faculty</a>
+        </li>
 
-    <!--Placement-->
-    <li class="nav-item">
-      <a class="nav-link" href="/p/student-placements">Placements</a>      
-    </li> 
-  <!-- Student Life 
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Placement</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/p/student-life">Student Life Overview</a></li>
-      <li><a class="dropdown-item" href="/p/student-achievements">Student Achievements</a></li>
-    <!--   <li><a class="dropdown-item" href="{{ url_for('public.newsletter') }}">Newsletter</a></li>       
-    </ul>
-  </li> -->
+        <!-- Research -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Research</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/p/publications">Publications</a></li>
+            <li><a class="dropdown-item" href="/p/funded-projects">Funded Projects</a></li>
+          </ul>
+        </li>
 
-  <!-- News & Media -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">News &amp; Media</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{{ url_for('public.news_list') }}">News</a></li>
-      <li><a class="dropdown-item" href="{{ url_for('public.events_list') }}">Events</a></li>
-    <!--   <li><a class="dropdown-item" href="/p/announcements">Announcements</a></li>
-      <li><a class="dropdown-item" href="/p/downloads">Downloads</a></li> -->
-    </ul>
-  </li>
+        <!-- Industry & Careers -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Industry &amp; Careers</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/p/mous">MoUs</a></li>
+            <li><a class="dropdown-item" href="/p/industry-visits">Industry Visits</a></li>
+            <li><a class="dropdown-item" href="/p/guest-lectures">Guest Lectures</a></li>
+          </ul>
+        </li>
 
-  <!--Gallery-->
-  <li class="nav-item">
-    <a class="nav-link"href="{{ url_for('public.gallery') }}">Gallery</a>
-  </li>
+        <!-- Placements -->
+        <li class="nav-item">
+          <a class="nav-link" href="/p/student-placements">Placements</a>
+        </li>
 
-  <!-- Contact -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a>
-      </li>
-    </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+        <!-- News & Media -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">News &amp; Media</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ url_for('public.news_list') }}">News</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('public.events_list') }}">Events</a></li>
+          </ul>
+        </li>
+
+        <!-- Gallery -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('public.gallery') }}">Gallery</a>
+        </li>
+
+        <!-- Contact -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
 
   <main>
     {% with messages = get_flashed_messages(with_categories=true) %}
