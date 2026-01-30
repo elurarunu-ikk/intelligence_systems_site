@@ -40,6 +40,9 @@ def create_app():
         db.create_all()
         _seed_admin_user(app)
 
+    from .seed_data import seed_if_empty
+    seed_if_empty()
+
     return app
 
 
