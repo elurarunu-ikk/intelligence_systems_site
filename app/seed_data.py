@@ -16,7 +16,7 @@ TABLES_TO_CHECK = [
 
 def _sqlite_file_from_uri(uri: str):
     # sqlite:///instance/site.db  -> instance/site.db
-    # sqlite:////var/data/site.db -> /var/data/site.db
+    # sqlite:////abs/path/site.db -> /abs/path/site.db
     if not uri.startswith("sqlite:"):
         return None
     if uri.startswith("sqlite:////"):
@@ -34,7 +34,7 @@ def seed_if_empty(app):
     with app.app_context():
         db.create_all()
 
-        # If any table already has data -> skip
+        # If any table already has data, skip seeding
         for t in TABLES_TO_CHECK:
             try:
                 n = db.session.execute(text(f"SELECT COUNT(*) FROM {t}")).scalar() or 0
@@ -51,7 +51,6 @@ def seed_if_empty(app):
 
         uri = app.config.get("SQLALCHEMY_DATABASE_URI", "")
         db_path = _sqlite_file_from_uri(uri)
-
         if not db_path:
             print("Seed: non-sqlite DB or invalid URI, skipping.")
             return
@@ -65,7 +64,7 @@ def seed_if_empty(app):
 
         sql = open(seed_path, "r", encoding="utf-8").read()
 
-        # Only INSERT statements (avoid schema conflicts)
+        # Only INSERT statements to avoid schema conflicts
         inserts = []
         for line in sql.splitlines():
             s = line.strip()
